@@ -1,0 +1,119 @@
+﻿@model DashBoard.Models.Basics
+
+@{
+    ViewBag.Title = "الرئيسية";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<style>
+    h2 {
+        text-align: right;
+    }
+
+    .texts {
+        border: 1px solid gray;
+        margin: auto auto;
+        width: 80%;
+        border-radius: 12px;
+        padding: 2%;
+        text-align: right;
+    }
+</style>
+
+@using (Html.BeginForm("mainText")) 
+{
+    @Html.AntiForgeryToken()
+    <p style="color:red">@ViewBag.Emsg</p>
+    <div class="form-horizontal">
+       @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h2>نصوص الصفحة الرئيسية</h2>
+        <div class="texts">
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label">النص الرئيسي للخدمات</label>
+            <textarea name="ourServtxt" class="form-control" cols="7" rows="3"></textarea>
+            @Html.ValidationMessageFor(model => model.ourServtxt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <label class="control-label">عنوان النص الرئيسي</label>
+            @Html.EditorFor(model => model.headerMidtxt, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.headerMidtxt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label">النص الرئيسي في الصفحة الرئيسية</label>
+            <textarea class="form-control" name="ParagMidtxt" cols="7" rows="3"></textarea>
+            @Html.ValidationMessageFor(model => model.ParagMidtxt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label">نص الاخبار الحديثة</label>
+            @Html.EditorFor(model => model.maintextNews, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.maintextNews, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-md-12"
+                       <label class="control-label">عنوان النص الرئيسي </label>
+                    @Html.EditorFor(model => model.mainImagText2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.mainImagText1, "", new { @class = "text-danger" })
+                </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label">النص الرئيسي الثاني</label>
+            @Html.EditorFor(model => model.mainImagText2, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.mainImagText2, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label">النص الفرعي </label>
+            @Html.EditorFor(model => model.parImgtxt, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.parImgtxt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label">النص متوسط الصفحة</label>
+            @Html.EditorFor(model => model.midHeaderIndexPage, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.midHeaderIndexPage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+            <label class="control-label ">النص </label>
+            @Html.EditorFor(model => model.midParaIndexPage, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.midParaIndexPage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-12" style="width:20%">
+                    <input type="submit" value="حفظ" class="form-control btn btn-primary" />
+                </div>
+            </div>
+   
+</div>
+       
+}
+
+        </div>
+<p style="color:green">@ViewBag.msg</p>
+}
