@@ -20,14 +20,14 @@ namespace DashBoard.Controllers
         public ActionResult Login()
         {
             return View();
-        } 
+        }
         [HttpPost]
-        public ActionResult Login(string username,string pass)
+        public ActionResult Login(string username, string pass)
         {
             try
             {
-                
-                if (username=="Admin"&& pass == "111")
+
+                if (username == "Admin" && pass == "111")
                 {
                     Session["UserLog"] = "login";
                     return RedirectToAction("Home");
@@ -49,13 +49,13 @@ namespace DashBoard.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Home(Basics bas)
         {
             try
             {
-                
+
                 con.Open();
                 com = new SqlCommand("insert into  Basics(email,Address,website,callus) Values ('" + bas.email + "','" + bas.Address + "','" + bas.website + "','" + bas.callus + "')", con);
                 com.ExecuteNonQuery();
@@ -86,13 +86,15 @@ namespace DashBoard.Controllers
                 com.ExecuteNonQuery();
                 con.Close();
                 ViewBag.msg = "your Data inserted successfully";
-                return View(); }
+                return View();
+            }
             catch { ViewBag.Emsg = "your Data didn't insert correctly"; return View(); }
-         }
+        }
         public ActionResult socialmedia()
         {
             DDLFun();
-            return View(); }
+            return View();
+        }
         [HttpPost]
         public ActionResult socialmedia(SocialMedia sM)
         {
@@ -120,23 +122,23 @@ namespace DashBoard.Controllers
                 if (d.Rows.Count > 0)
                 {
                     List<SocialMedia> List = new List<SocialMedia>();
-                    string[] arr=new string[4]{ "facebook", "twitter", "whatsapp", "instagram" };
+                    string[] arr = new string[4] { "facebook", "twitter", "whatsapp", "instagram" };
                     for (int i = 0; i < arr.Length; i++)
                     {
-                        for (int k = 0; k< d.Rows.Count; k++)
+                        for (int k = 0; k < d.Rows.Count; k++)
                         {
                             if (d.Rows[k]["icon"].ToString() == arr[i])
                             {
                                 continue;
                             }
                         }
-                        List.Add(new SocialMedia() { SocialID = i+1, icon = arr[i] });
+                        List.Add(new SocialMedia() { SocialID = i + 1, icon = arr[i] });
                     }
-                    
+
                     ViewBag.listIcons = List;
                 }
-               
-               
+
+
                 con.Close();
             }
             catch { con.Close(); }
@@ -164,7 +166,7 @@ namespace DashBoard.Controllers
             }
             catch { ViewBag.Emsg = "Error Ocurred"; return View(); }
         }
-       public void DDlSevices()
+        public void DDlSevices()
         {
             try
             {
@@ -173,17 +175,18 @@ namespace DashBoard.Controllers
                 SqlDataReader SqlDr = com.ExecuteReader();
                 DataTable d = new DataTable();
                 d.Load(SqlDr);
-                 List<Services> List = new List<Services>();
-                    for (int t = 0; t < d.Rows.Count; t++)
-                    {
-                        int id = int.Parse(d.Rows[t]["ServicesID"].ToString());
-                        string name = d.Rows[t]["Name"].ToString();
-                        List.Add(new Services() {ServicesID=id,Name=name});
-                    }
-                    ViewBag.listServ = new SelectList(List, "ServicesID", "Name");
+                List<Services> List = new List<Services>();
+                for (int t = 0; t < d.Rows.Count; t++)
+                {
+                    int id = int.Parse(d.Rows[t]["ServicesID"].ToString());
+                    string name = d.Rows[t]["Name"].ToString();
+                    List.Add(new Services() { ServicesID = id, Name = name });
+                    ViewData["listServ"] = new SelectList(List, "ServicesID", "Name");
+                }
+
                 con.Close();
             }
-            
+
             catch { con.Close(); }
         }
         public ActionResult LastNew()
@@ -214,8 +217,59 @@ namespace DashBoard.Controllers
             }
         }
 
+
+        public ActionResult products()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult products(Products pro)
+        {
+            HttpPostedFileBase file = Request.Files["img"];
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
+                    pro.img = "~/imgs/" + file.FileName;
+                    con.Open();
+                    com = new SqlCommand("insert into  Products Values ('" + pro.Price + "','" + pro.Text + "','" + pro.img + "'," + pro.FKSubID + ")", con);
+                    com.ExecuteNonQuery();
+                    con.Close();
+                    ViewBag.msg = "a product inserted successfully";
+                    return View();
+                }
+                catch { ViewBag.msg = "a product didn't insert correctly"; return View(); }
+
+            else
+            {
+                ViewBag.msg = "file not uploaded"; return View();
+            }
+        }
+
+
+
         public ActionResult Services()
         {
+            try
+            {
+                con.Open();
+                com = new SqlCommand("select * from SubCategory ", con);
+                SqlDataReader SqlDr = com.ExecuteReader();
+                DataTable d = new DataTable();
+                d.Load(SqlDr);
+                List<SubCategory> List = new List<SubCategory>();
+                for (int t = 0; t < d.Rows.Count; t++)
+                {
+                    int id = int.Parse(d.Rows[t]["SubCategoryID"].ToString());
+                    string name = d.Rows[t]["SubCateName"].ToString();
+                    List.Add(new SubCategory() { SubCategoryID = id, SubCateName = name });
+                    ViewData["listsub"] = new SelectList(List, "ServicesID", "Name");
+                }
+
+                con.Close();
+            }
+            catch { con.Close(); }
             return View();
         }
         [HttpPost]
@@ -232,11 +286,12 @@ namespace DashBoard.Controllers
                     com.ExecuteNonQuery();
                     con.Close();
                     ViewBag.msg = "your services inserted successfully";
-                   return View();
+                    return View();
                 }
-                catch {
-                        ViewBag.Emsg = "your services didn't insert correctly"; return View();
-                      }
+                catch
+                {
+                    ViewBag.Emsg = "your services didn't insert correctly"; return View();
+                }
 
             else
             {
@@ -252,9 +307,9 @@ namespace DashBoard.Controllers
         [HttpPost]
         public ActionResult AllBranches(Branches br, HttpPostedFileBase[] imgsfile)
         {
-            BranchDetail bd=new BranchDetail();
+            BranchDetail bd = new BranchDetail();
             HttpPostedFileBase file = Request.Files["imgfile"];
-            
+
             foreach (HttpPostedFileBase f in imgsfile)
             {
                 if (f.ContentLength > 0)
@@ -265,16 +320,16 @@ namespace DashBoard.Controllers
                     }
                 }
             }
-                    if (file != null && file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0)
                 try
                 {
                     file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
                     br.mainImg = "~/imgs/" + file.FileName;
                     con.Open();
-                    com = new SqlCommand("insert into  Branches Values ('" + br.phone + "','" + br.Title + "','" + br.mainImg + "','"+br.AddBranche+"')", con);
+                    com = new SqlCommand("insert into  Branches Values ('" + br.phone + "','" + br.Title + "','" + br.mainImg + "','" + br.AddBranche + "')", con);
                     com.ExecuteNonQuery();
-                    int id=getMaxId();
-                    SqlCommand com2 = new SqlCommand("insert into BranchDetail values('"+bd.imgSrc+"',"+id+")", con);
+                    int id = getMaxId();
+                    SqlCommand com2 = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + id + ")", con);
                     con.Close();
                     ViewBag.msg = "your data inserted successfully";
                     return View();
@@ -294,14 +349,15 @@ namespace DashBoard.Controllers
 
         public int getMaxId()
         {
-            try {
+            try
+            {
                 com = new SqlCommand("select top(1)BID from Branches order by BID desc ");
                 SqlDataReader dr = com.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(dr);
                 return int.Parse(dt.Rows[0][0].ToString());
             }
-            catch { con.Close();return 0; }
+            catch { con.Close(); return 0; }
         }
         public ActionResult branch()
         {
@@ -346,6 +402,6 @@ namespace DashBoard.Controllers
             }
             return View();
         }
-        
+
     }
 }

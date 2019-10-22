@@ -9,6 +9,7 @@ namespace DashBoard.Models
     {
         public int SubCategoryID { get; set; }
         public string SubCateName { get; set; }
+        public string enSubName { get; set; }
         public int FKServID { get; set; }
     }
 }

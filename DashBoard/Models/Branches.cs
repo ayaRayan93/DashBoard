@@ -12,6 +12,8 @@ namespace DashBoard.Models
         public string Title { get; set; }
         public string mainImg{get;set;}
         public string AddBranche{get;set;}
- 
+        public string enTitle { get; set; }
+        public string enAddrBranch { get; set; }
+
     }
 }

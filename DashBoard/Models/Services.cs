@@ -11,6 +11,8 @@ namespace DashBoard.Models
         public string Name { get; set; }
         public string textServe { get; set; }
         public string img { get; set; }
+        public string Name { get; set; }
+        public string entxtServe { get; set; }
 
     }
 }

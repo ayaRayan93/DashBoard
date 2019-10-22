@@ -150,6 +150,7 @@
     <Compile Include="Models\BranchDetail.cs" />
     <Compile Include="Models\Branches.cs" />
     <Compile Include="Models\imgNew.cs" />
+    <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\SocialMedia.cs" />
     <Compile Include="Models\SubCategory.cs" />

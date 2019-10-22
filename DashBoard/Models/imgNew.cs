@@ -13,5 +13,7 @@ namespace DashBoard.Models
         public DateTime DateNew { get; set; }
         public string Maintxt { get; set; }
         public int FKBasicID { get; set; }
+        public string enHeadertxt { get; set; }
+        public string enMaintxt { get; set; }
     }
 }
