@@ -158,7 +158,7 @@ namespace DashBoard.Controllers
             try
             {
                 con.Open();
-                com = new SqlCommand("insert into  SubCategory Values ('" + sub.SubCateName + "','" + sub.FKServID + "')", con);
+                com = new SqlCommand("insert into  SubCategory Values ('" + sub.SubCateName + "','" + sub.FKServID + "','"+ sub.enSubName + "')", con);
                 com.ExecuteNonQuery();
                 con.Close();
                 ViewBag.msg = "Successded";
