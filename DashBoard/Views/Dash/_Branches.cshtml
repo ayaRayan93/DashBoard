@@ -1,0 +1,87 @@
+﻿@model System.Data.DataTable
+
+<div class="containertbl" dir="rtl">
+    <p style="text-align:right">
+        التصنيفات
+    </p>
+    <table  class="table table-striped table-hover">
+        <tr>
+            <th>
+                اسم الفرع بالعربي
+            </th>
+            <th>
+                اسم الفرع بالانجليزي
+            </th>
+            <th>
+                تليفون الفرع
+            </th>
+            <th>
+                عنوان الفرع بالعربي 
+            </th>
+            <th>
+                عنوان الفرع الانجليزي
+            </th>
+            <th>
+                الصورة الرئيسية للفرع
+            </th>
+        </tr>
+
+       @for (int i = 0; i < Model.Rows.Count; i++)
+       {
+            <tr id="row_@i">
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rows[i]["Title"])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rows[i]["enTitle"])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rows[i]["phone"])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rows[i]["AddBranche"])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rows[i]["enAddrBranch"])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rows[i]["mainImg"])
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Rows[i]["BID"] }) |
+                    <div id="remove"> <a id="@Model.Rows[i]["BID"]" href="javascript:;">delete</a></div>
+                </td>
+            </tr>
+        }
+
+    </table>
+   </div>
+     <script>
+
+
+      $(document).ready(function ()
+    {
+       $("#remove a").click(function (e) {
+           e.preventDefault();
+           var id = $(this).attr("id");
+
+           var MSG = confirm("Are you sure you want to delete this Record?");
+
+           if (MSG) {
+
+               $.ajax({
+                   type:"POST",
+                   url: '/Deleting/Deletebranch/id',
+                   data: { id: id },
+                   success: function () {
+                       $("#row_" + id).remove();
+                   },
+                   error: function () {
+
+                   }
+               });
+           }
+       })
+   });
+
+    </script>

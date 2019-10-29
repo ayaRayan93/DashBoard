@@ -12,7 +12,7 @@ namespace DashBoard.Controllers
 {
     public class DashController : Controller
     {
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=maindb;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-CQI3I4K\MYSQLSERVER;Initial Catalog=maindb;Integrated Security=True");
         SqlCommand com;
 
         // GET: Dash
@@ -124,7 +124,7 @@ namespace DashBoard.Controllers
          }
 
         
-public PartialViewResult _SocialLinks()
+        public PartialViewResult _SocialLinks()
         {
             con.Open();
             com = new SqlCommand("select * from SocialMedia", con);
@@ -423,15 +423,27 @@ public PartialViewResult _SocialLinks()
         public PartialViewResult _services()
         {
             con.Open();
-            com = new SqlCommand("select * from Services", con);
-            SqlDataReader sqldr = com.ExecuteReader();
+            SqlCommand com1 = new SqlCommand("select * from Services", con);
+            SqlDataReader sqldr = com1.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(sqldr);
+            
             con.Close();
            // IEnumerable<DataRow> s = dt.AsEnumerable();
             return PartialView("_services", dt);
         }
+        public PartialViewResult _Branches()
+        {
+            con.Open();
+            SqlCommand com1 = new SqlCommand("select * from Branches", con);
+            SqlDataReader sqldr = com1.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(sqldr);
 
+            con.Close();
+            // IEnumerable<DataRow> s = dt.AsEnumerable();
+            return PartialView("_Branches", dt);
+        }
         public ActionResult AllBranches()
         {
             return View();
@@ -442,16 +454,23 @@ public PartialViewResult _SocialLinks()
             BranchDetail bd = new BranchDetail();
             HttpPostedFileBase file = Request.Files["imgfile"];
 
-            foreach (HttpPostedFileBase f in imgsfile)
-            {
-                if (f.ContentLength > 0)
-                {
-                    if (f != null && file.ContentLength > 0)
-                    {
-                        f.SaveAs(Path.Combine(Server.MapPath("/imgs"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
-                    }
-                }
-            }
+            //foreach (HttpPostedFileBase f in imgsfile)
+            //{
+            //    if (f.ContentLength > 0)
+            //    {
+            //        if (f != null && file.ContentLength > 0)
+            //        {
+            //            f.SaveAs(Path.Combine(Server.MapPath("/imgs"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
+            //        }
+            //    }
+            //}
+            //foreach (HttpPostedFileBase file1 in Request.Files)
+            //{
+            //    if (file1.ContentLength > 0)
+            //    {
+            //        file1.SaveAs(Server.MapPath("~/imgs/" + file1.FileName));
+            //    }
+            //}
             if (file != null && file.ContentLength > 0)
                 try
                 {
@@ -476,9 +495,19 @@ public PartialViewResult _SocialLinks()
                 ViewBag.Emsg = "file not uploaded"; return View();
             }
         }
+        [HttpPost]
+        public JsonResult Upload()
+        {
+            foreach (HttpPostedFileBase file in Request.Files)
+            {
+                if (file.ContentLength > 0)
+                {
+                    file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
+                }
+            }
 
-
-
+            return Json(new { result = true });
+        }
         public int getMaxId()
         {
             try
@@ -535,11 +564,6 @@ public PartialViewResult _SocialLinks()
             return View();
         }
 
-
-
-
-
-
         //----------------------------------------edit data in table ----------------------
         [HttpGet]
         public ActionResult EditServ(int id)
@@ -591,8 +615,6 @@ public PartialViewResult _SocialLinks()
             else { ViewBag.Emsg = "file not uploaded"; return View(); }
 
             }
-
-
 
         [HttpGet]
         public ActionResult EditimgNew(int id)

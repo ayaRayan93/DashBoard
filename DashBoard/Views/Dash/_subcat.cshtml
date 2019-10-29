@@ -28,7 +28,7 @@
                     @Html.DisplayFor(modelItem => Model.Rows[i]["enSubName"])
                 </td>
                 <td>
-                    @{ System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection("Data Source=.;Initial Catalog=maindb;Integrated Security=True");
+                    @{ System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=DESKTOP-CQI3I4K\MYSQLSERVER;Initial Catalog=maindb;Integrated Security=True");
                         con.Open();
                         System.Data.SqlClient.SqlCommand com = new System.Data.SqlClient.SqlCommand("select * from Services where ServicesID="+Model.Rows[i]["FKServID"], con);
                         System.Data.SqlClient.SqlDataReader SqlDr = com.ExecuteReader();
