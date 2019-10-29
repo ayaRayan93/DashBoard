@@ -1,0 +1,78 @@
+﻿@model DashBoard.Models.Products
+
+@{
+    ViewBag.Title = "المنتجات";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2 style="text-align:right">المنتجات</h2>
+
+
+@using (Html.BeginForm("products", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="" dir="rtl" style="margin:auto auto; text-align:right;width:600px">
+            <p style="color:red">@ViewBag.Emsg</p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+          
+        <div class="form-group">
+           <div class="col-md-12">
+               <label class="control-label ">
+                اسم المنتج بالعربي
+               </label>
+                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+           </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="control-label ">
+                    اسم المنتج بالانجليزي
+                </label>
+                @Html.EditorFor(model => model.enText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.enText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+                <div class="col-md-12">
+                    <label class="control-label ">
+                        سعر المنتج
+                    </label>
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        <div class="form-group">
+                <div class="col-md-12">
+                    <label class="control-label ">
+                        صورة المنتج
+                    </label>
+                    <input type="file" name="img" class="form-control" />
+                 </div>
+            </div>
+
+        <div class="form-group">
+                  <div class="col-md-12">
+                    <label>التصنيف الفرعي للمنتج</label>
+                   @Html.DropDownListFor(m => m.FKSubID, ViewBag.listsub as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                   @Html.ValidationMessageFor(model => model.FKSubID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="اضافة" class="btn btn-primary" />
+                </div>
+            </div>
+        
+    </div>
+        <p style="color:green">@ViewBag.msg</p>
+   </div>
+}
+@{Html.RenderAction("_product", "Dash");
+}
+
+
+

@@ -1,7 +1,7 @@
 ﻿@model DashBoard.Models.SocialMedia
 
 @{
-    ViewBag.Title = "socialmedia";
+    ViewBag.Title = "لينكات مواقع التواصل الاجتماعي";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
 
@@ -14,21 +14,27 @@
 
     <div class="form-horizontal">
         <div class="" dir="rtl" style="margin:auto auto; text-align:right;width:600px">
-            <p style="color:red">@ViewBag.msg</p>
-
-           
-
+            <p style="color:red">@ViewBag.Emsg</p>
             <div class="form-group">
                 
                 <div class="col-md-12">
                     <label>مواقع التواصل الاجتماعي </label>
-                    @foreach (var i in ViewBag.listIcons)
-                    { <div class="custom-control custom-checkbox">
-                        <input type="radio" style="color:blue" name="icon" id="defaultUnchecked">
+                    @*@if (ViewBag.listIcons != null)
+                    {
+                        foreach (var i in ViewBag.listIcons)
+                        { <div class="custom-control custom-checkbox">
+                        <input type="radio" value="@i.icon"style="color:blue" name="icon" >
                           <i class="fa fa-@i.icon" style="font-size:18px;color:black;float:left"></i>
-</div>
+                      </div>
+
+                        }
                     }
-                    @*@Html.DropDownListFor(m => m.icon, ViewBag.listIcons as IEnumerable<SelectListItem>, new { @class = "form-control" })*@
+                    else
+                    {
+                        <input type="text" value="icon" style="color:blue" name="icon">
+                    }*@
+
+                    @Html.DropDownListFor(m => m.icon, ViewBag.listSocial as IEnumerable<SelectListItem>, new { @class = "form-control" })
                 </div>
             </div>
 
@@ -38,7 +44,7 @@
                     <label>الرابط</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">www</span>
+                            <span class="input-group-text" id="basic-addon3"><i class="fas fa-link"></i></span>
                         </div>
                         <input type="text" class="form-control" id="basic-url" name="link" aria-describedby="basic-addon3">
                     </div>
@@ -53,5 +59,7 @@
             </div>
         </div>
         </div>
+
 }
+@{Html.RenderAction("_SocialLinks", "Dash"); }
 

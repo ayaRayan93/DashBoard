@@ -8,18 +8,23 @@
     <meta name="author" content="">
     <title>@ViewBag.Title</title>
     <!-- Custom fonts for this template-->
-    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    @*<link href="~/css/fontawesome.min.css" rel="stylesheet" />*@
+    
     <link href="~/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- Page level plugin CSS-->
     <link href="~/css/dataTables.bootstrap4.css" rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="~/css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
+    <link href="~/css/sb-admin.css" rel="stylesheet"> 
+    <link href="~/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/css/mystyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+     <style>
         i {
-            color: orange;
+            color:cadetblue;
         }
+         span {
+         color:gray}
+         span:hover,focus,active {
+         color:cadetblue;}
+         li.nav-item:hover {border-right:5px solid cadetblue
+         }
     </style>
 </head>
 
@@ -35,44 +40,72 @@
         <ul class="sidebar navbar-nav">
 
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                
+                <a href="~/Dash/Home" class="nav-link">
+                
+                    <span>معلومات الاتصال</span>
+                    <i class="fas fa-phone"></i>
                 </a>
-            </li>
-            <li class="nav-item" style="text-align:right">
-                <i class="fas fa-address-book"></i>
-                @Html.ActionLink("معلومات الاتصال", "Home","Dash", new { @class = "nav-link" })
+
+                @*@Html.ActionLink("معلومات الاتصال", "Home","Dash", new { @class = "nav-link" })*@
             </li>
             <li class="nav-item">
-                <i class="far fa-file-alt"></i>
-                @Html.ActionLink("النصوص الرئيسية", "mainText", "Dash", new { @class = "nav-link" })
+                <a href="~/Dash/mainText" class="nav-link">
+                    
+                    <span>النصوص الرئيسية</span>
+                    <i class="fas fa-file-alt"></i>
+                </a>
+                @*@Html.ActionLink("النصوص الرئيسية", "mainText", "Dash", new { @class = "nav-link" })*@
             </li>
             <li class="nav-item">
-                    <i class="fa fa-services"></i>
-                    @Html.ActionLink("الخدمات", "Services", "Dash", new { @class = "nav-link" })
+                <a  href="~/Dash/Services" class="nav-link">
+                   
+                    <span>الخدمات</span>
+                    <i class="fas fa-services"></i>
+                </a>
+                   
+                    @*@Html.ActionLink("الخدمات", "Services", "Dash", new { @class = "nav-link" })*@
              
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    @Html.ActionLink("المنتجات", "products","Dash", new { @class = "nav-link" })
+                <a class="nav-link" href="~/Dash/products">
+                    
+                    <span>المنتجات</span>
+                    <i class="fas fa-shopping-basket"></i>
+                    @*@Html.ActionLink("المنتجات", "products","Dash", new { @class = "nav-link" })*@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="~/Dash/subcategory">
+                    
+                    <span>الاقسام</span>
                     <i class="fas fa-fw fa-chart-area"></i>
-                    @Html.ActionLink("الاقسام/الفروع", "subcategory","Dash", new { @class = "nav-link" })
+                   @* @Html.ActionLink("الاقسام/الفروع", "subcategory","Dash", new { @class = "nav-link" })*@
                 </a>
             </li>
             <li class="nav-item">
-                <i class="far fa-file-alt"></i>
-                @Html.ActionLink("مواقع التواصل الاجتماعي", "socialmedia", "Dash", new { @class = "nav-link" })
+                <a class="nav-link" href="~/Dash/AllBranches">
+
+                    <span>الفروع</span>
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    @* @Html.ActionLink("الاقسام/الفروع", "subcategory","Dash", new { @class = "nav-link" })*@
+                </a>
             </li>
             <li class="nav-item">
-                <i class="fal fa-sign-out-alt"></i>
-                @Html.ActionLink("تسجيل الخروج", "Logout","Dash", new { @class = "nav-link" })
-               
+                <a class="nav-link" href="~/Dash/socialmedia">
+                     
+                     <span>مواقع التواصل الاجتماعي</span>
+                    <i class="fas fa-file-alt"></i>
+               @* @Html.ActionLink("مواقع التواصل الاجتماعي", "socialmedia", "Dash", new { @class = "nav-link" })*@
+               </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Dash/Logout">
+                    
+                    <span>تسجيل الخروج</span>
+                    <i class="fas fa-sign-out-alt"></i>
+                   @* @Html.ActionLink("تسجيل الخروج", "Logout", "Dash", new { @class = "nav-link" })*@
+                </a>
             </li>
         </ul>
         <div id="content-wrapper">
@@ -94,13 +127,7 @@
                 @RenderBody()
 
                 <!-- Sticky Footer -->
-                <footer class="sticky-footer">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright © Your Website 2019</span>
-                        </div>
-                    </div>
-                </footer>
+               
             </div>
             <!-- /.content-wrapper -->
         </div>
@@ -142,7 +169,7 @@
         <!-- Demo scripts for this page-->
         <script src="~/js/datatables-demo.js"></script>
         <script src="~/js/chart-area-demo.js"></script>
-
+    
 
         </body>
 </html>

@@ -47,19 +47,30 @@
             <div class="form-group">
                 
                 <div class="col-md-12">
-                    <label class="control-label">العنوان</label>
+                    <label class="control-label">  العنوان بالعربي</label>
                     @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
+                <div class="col-md-12">
+                    <label class="control-label">  العنوان بالانجليزي</label>
+                   <input type="text" name="addr" id="addr" class = "form-control" />
+                   
+                </div>
             </div>
+
 
             <div class="form-group">
               
                 <div class="col-md-12">
                     <label class="control-label">الموقع الالكتروني</label>
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3"><i class="fas fa-link"></i></span>
+                    </div>
                     @Html.EditorFor(model => model.website, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.website, "", new { @class = "text-danger" })
-                </div>
+                  </div>
+                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -74,6 +85,3 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

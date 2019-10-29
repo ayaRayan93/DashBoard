@@ -28,80 +28,125 @@
        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <h2>نصوص الصفحة الرئيسية</h2>
         <div class="texts">
-    <div class="form-group">
+            
+                <p style="color:blue">خدماتنا</p>
+                <div class="form-group">
+                  
+                    <div class="col-md-12">
+                        <label class="control-label">  النص الرئيسي للخدمات بالعربي</label>
+                        <textarea name="ourServtxt" class="form-control" cols="7" rows="3"></textarea>
+                        @Html.ValidationMessageFor(model => model.ourServtxt, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="col-md-12">
-            <label class="control-label">النص الرئيسي للخدمات</label>
-            <textarea name="ourServtxt" class="form-control" cols="7" rows="3"></textarea>
-            @Html.ValidationMessageFor(model => model.ourServtxt, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
+                    <div class="col-md-12">
+                        <label class="control-label">النص الرئيسي للخدمات بالانجليزي</label>
+                        <textarea name="enourServtxt" class="form-control" cols="7" rows="3"></textarea>
+                        @Html.ValidationMessageFor(model => model.ourServtxt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            
+   
+<hr/>
+    <p style="color:blue">عنا</p>
     <div class="form-group">
+        
         <div class="col-md-12">
-            <label class="control-label">عنوان النص الرئيسي</label>
+            <label class="control-label"> عنوان النص  بالعربي</label>
             @Html.EditorFor(model => model.headerMidtxt, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.headerMidtxt, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-12">
+            <label class="control-label"> عنوان النص  بالانجليزي</label>
+           <input type="text" class="form-control" name="headerMidtxt" />
+           </div>
     </div>
 
     <div class="form-group">
 
         <div class="col-md-12">
-            <label class="control-label">النص الرئيسي في الصفحة الرئيسية</label>
+            <label class="control-label">النص  بالعربي</label>
             <textarea class="form-control" name="ParagMidtxt" cols="7" rows="3"></textarea>
             @Html.ValidationMessageFor(model => model.ParagMidtxt, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-
         <div class="col-md-12">
-            <label class="control-label">نص الاخبار الحديثة</label>
+            <label class="control-label"> النص بالانجليزي</label>
+            <textarea class="form-control" name="enParagMidtxt" cols="7" rows="3"></textarea>
+            </div>
+       </div>
+<hr/>
+    <div class="form-group">
+        <p style="color:blue">احدث الاخبار </p>
+        <div class="col-md-12">
+            <label class="control-label">عنوان النص بالعربي </label>
             @Html.EditorFor(model => model.maintextNews, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.maintextNews, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-12">
+            <label class="control-label">عنوان النص بالانجليزي </label>
+            <input type="text" name="maintextNews" class = "form-control" />
+           
+        </div>
     </div>
-
+<hr/>
     <div class="form-group">
-
-        <div class="col-md-12"
-                       <label class="control-label">عنوان النص الرئيسي </label>
-                    @Html.EditorFor(model => model.mainImagText2, new { htmlAttributes = new { @class = "form-control" } })
+        <p style="color:blue">النص الموجود في بداية الصفحة</p>
+        <div class="col-md-12">
+                    <label class="control-label"> عنوان النص الرئيسي بالعربي </label>
+                    @Html.EditorFor(model => model.mainImagText1, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.mainImagText1, "", new { @class = "text-danger" })
-                </div>
+        </div>  
+        <div class="col-md-12">
+            <label class="control-label"> عنوان النص الرئيسي بالانجليزي </label>
+             <input type="text" name="mainImagText1" class = "form-control" />
+         </div>      
     </div>
     <div class="form-group">
 
         <div class="col-md-12">
-            <label class="control-label">النص الرئيسي الثاني</label>
+            <label class="control-label">النص الرئيسي الثاني بالعربي</label>
             @Html.EditorFor(model => model.mainImagText2, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.mainImagText2, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-12">
+            <label class="control-label">النص الرئيسي الثاني بالانجليزي</label>
+            <input type="text" name="mainImagText2" class = "form-control" />
+         </div>
     </div>
     <div class="form-group">
-
         <div class="col-md-12">
-            <label class="control-label">النص الفرعي </label>
+            <label class="control-label"> النص الفرعي بالعربي  </label>
             @Html.EditorFor(model => model.parImgtxt, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.parImgtxt, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-
         <div class="col-md-12">
-            <label class="control-label">النص متوسط الصفحة</label>
+            <label class="control-label"> النص الفرعي بالانجليزي  </label>
+            <input type="text" name="parImgtxt" class = "form-control" />
+         </div>
+    </div>
+     <hr/>
+    <div class="form-group">
+        <p style="color:blue">النص ف الوسط</p>
+        <div class="col-md-12">
+            <label class="control-label">النص بالعربي</label>
             @Html.EditorFor(model => model.midHeaderIndexPage, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.midHeaderIndexPage, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-12">
+            <label class="control-label">النص بالانجليزي</label>
+            <input type="text" name="midHeaderIndexPage" class = "form-control" />
+        </div>
     </div>
     <div class="form-group">
 
         <div class="col-md-12">
-            <label class="control-label ">النص </label>
+            <label class="control-label ">النص الفرعي بالعربي </label>
             @Html.EditorFor(model => model.midParaIndexPage, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.midParaIndexPage, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-12">
+            <label class="control-label ">النص الفرعي بالانجليزي </label>
+           <input type="text" name="midParaIndexPage" class = "form-control"/>
+            </div>
     </div>
             <br />
             <div class="form-group">
@@ -116,4 +161,3 @@
 
         </div>
 <p style="color:green">@ViewBag.msg</p>
-}
