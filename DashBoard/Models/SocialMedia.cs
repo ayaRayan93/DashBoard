@@ -10,6 +10,6 @@ namespace DashBoard.Models
         public int SocialID {get; set;}
         public string icon { get; set; }
         public string link { get; set; }
-        public int FKBasicID { get; set; }
+
     }
 }

@@ -16,15 +16,23 @@
             <p style="color:red">@ViewBag.Emsg</p>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="control-label ">
+                      اسم الفرع بالعربي
+                    </label>
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-md-12">
                     <label class="control-label ">
-                        اسم الفرع
+                        اسم الفرع بالانجليزي
                     </label>
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.enTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.enTitle, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
@@ -40,10 +48,19 @@
             <div class="form-group">
                 <div class="col-md-12">
                     <label class="control-label ">
-                        عنوان الفرع
+                        عنوان الفرع بالعربي  
                     </label>
                     @Html.EditorFor(model => model.AddBranche, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.AddBranche, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="control-label ">
+                        عنوان الفرع الانجليزي
+                    </label>
+                    @Html.EditorFor(model => model.enAddrBranch, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.enAddrBranch, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
@@ -59,7 +76,7 @@
             <div class="form-group">
                 <div class="col-md-12">
                     <label class="control-label ">
-                        الصورة الفرعية للفرع
+                        الصور الفرعية للفرع
                     </label>
                     <input type="file" name="imgsfile" class="form-control" />
                  </div>

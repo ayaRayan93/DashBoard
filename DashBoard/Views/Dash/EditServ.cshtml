@@ -5,17 +5,17 @@
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
 
-<h2 style="text-align:right">اضافة خدمة جديدة</h2>
+<h2 style="text-align:right">تعديل</h2>
 
-@using (Html.BeginForm("Services", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditServ", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+   
     <div class="form-horizontal">
         <div class="" dir="rtl" style="margin:auto auto; text-align:right;width:600px">
             <p style="color:red">@ViewBag.Emsg</p>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+            @Html.HiddenFor(model => model.ServicesID)
             <div class="form-group">
                 <label class="control-label ">
                     صورة الخدمة
@@ -23,7 +23,7 @@
                 <input type="file" name="imgfile" class="form-control" />
                 @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
             </div>
-       
+
             <div class="form-group">
                 <div class="col-md-12">
                     <label class="control-label">  عنوان الخدمة الرئيسي بالعربي </label>
@@ -40,8 +40,8 @@
             </div>
 
             <div class="form-group">
-                 <div class="col-md-12">
-                     <label class="control-label">وصف الخدمة بالعربي</label>
+                <div class="col-md-12">
+                    <label class="control-label">وصف الخدمة بالعربي</label>
                     @Html.EditorFor(model => model.textServe, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.textServe, "", new { @class = "text-danger" })
                 </div>
@@ -49,20 +49,22 @@
             <div class="form-group">
                 <div class="col-md-12">
                     <label class="control-label"> وصف الخدمة بالانجليزي </label>
-                    @Html.EditorFor(model => model.textServe, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.entxtServe, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.textServe, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-            <div class="col-md-12">
-                <input type="submit" value="اضافة" class="btn btn-primary" />
+                <div class="col-md-12">
+                    <input type="submit" value="حفظ التغيرات" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-        </div>
-       
-     </div>
- 
-}
-@{Html.RenderAction("_services", "Dash");}
 
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -119,10 +119,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="css\dataTables.bootstrap4.css" />
     <Content Include="css\fontawesome.min.css" />
+    <Content Include="css\mystyle.css" />
     <Content Include="css\sb-admin.css" />
     <Content Include="css\sb-admin.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="css\all.min.css" />
     <Content Include="js\chart-area-demo.js" />
@@ -132,17 +137,31 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.bundle.min.js" />
+    <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\Chart.min.js" />
     <Content Include="scripts\dataTables.bootstrap4.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\jquery.dataTables.js" />
     <Content Include="scripts\jquery.easing.min.js" />
     <Content Include="scripts\jquery.min.js" />
+    <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.validate.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DashController.cs" />
+    <Compile Include="Controllers\DeletingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,6 +191,17 @@
     <Content Include="Views\Dash\AllBranches.cshtml" />
     <Content Include="Views\Dash\branch.cshtml" />
     <Content Include="Views\Dash\subcategory.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Dash\_services.cshtml" />
+    <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Dash\_lastNew.cshtml" />
+    <Content Include="Views\Dash\_subcat.cshtml" />
+    <Content Include="Views\Dash\products.cshtml" />
+    <Content Include="Views\Dash\_product.cshtml" />
+    <Content Include="Views\Dash\_SocialLinks.cshtml" />
+    <Content Include="Views\Dash\EditServ.cshtml" />
+    <Content Include="Views\Dash\EditimgNew.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -182,6 +212,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="imgs\" />
+    <Folder Include="Views\Default\" />
+    <Folder Include="Views\Deleting\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
