@@ -205,6 +205,7 @@
     <Content Include="Views\Dash\_Branches.cshtml" />
     <Content Include="Views\Dash\Editsubcate.cshtml" />
     <Content Include="Views\Dash\Details.cshtml" />
+    <Content Include="Views\Dash\Editproduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

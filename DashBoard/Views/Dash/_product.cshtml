@@ -55,7 +55,7 @@
                     @Html.DisplayFor(modelItem => d.Rows[0]["SubCateName"])
                 </td>
                 <td>
-                    @Html.ActionLink("تعديل", "Edit","Dash", new { id = Model.Rows[i]["ProductID"] }, new { @class = "text-primary" }) 
+                    @Html.ActionLink("تعديل", "Editproduct","Dash", new { id = Model.Rows[i]["ProductID"] }, new { @class = "text-primary" }) 
                 </td>
                 <td> 
                      <div id="remove"> <a id="@Model.Rows[i]["ProductID"]" href="javascript:;">حذف</a></div>

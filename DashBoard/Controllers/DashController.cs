@@ -705,7 +705,63 @@ namespace DashBoard.Controllers
                     return View();
                 }
            
+        }
 
+        
+              [HttpGet]
+        public ActionResult Editproduct(int id)
+        {
+            try
+            {
+                DDlsub();
+                con.Open();
+                Products j = new Products();
+                com = new SqlCommand("select * from Products where ProductID=" + id + " ", con);
+                SqlDataReader SqlDr = com.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(SqlDr);
+                j.ProductID = int.Parse(dt.Rows[0]["ProductID"].ToString());
+                j.Text = dt.Rows[0]["Text"].ToString();
+                j.enText = dt.Rows[0]["enText"].ToString();
+                j.Price = float.Parse(dt.Rows[0]["Price"].ToString());
+                j.img = dt.Rows[0]["img"].ToString();
+                
+                con.Close();
+                return View(j);
+            }
+            catch { ViewBag.Emsg = "Error occured"; return View(); };
+
+        }
+        [HttpPost]
+        public ActionResult Editproduct(Products pro)
+        {
+            DDlsub();
+            HttpPostedFileBase file = Request.Files["img"];
+            if (file != null && file.ContentLength > 0)
+            {
+                try
+                {
+                    file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
+                    pro.img = "~/imgs/" + file.FileName;
+                    con.Open();
+                    com = new SqlCommand("update Products set Text=N'" + pro.Text + "',enText='" + pro.enText + "',img=N'" + pro.img + "',Price=" + pro.Price + " where ProductID=" + pro.ProductID, con);
+                    com.ExecuteNonQuery();
+                    
+                    con.Close();
+                    return RedirectToAction("products");
+                }
+
+                catch
+                {
+                    ViewBag.Emsg = "file not upload";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.Emsg = "فشل التعديل";
+                return View();
+            }
         }
 
 
