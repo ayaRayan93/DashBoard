@@ -204,6 +204,7 @@
     <Content Include="Views\Dash\EditimgNew.cshtml" />
     <Content Include="Views\Dash\_Branches.cshtml" />
     <Content Include="Views\Dash\Editsubcate.cshtml" />
+    <Content Include="Views\Dash\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

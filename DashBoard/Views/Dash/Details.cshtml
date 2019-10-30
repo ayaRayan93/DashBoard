@@ -1,0 +1,53 @@
+﻿@model System.Data.DataTable
+@if (ViewBag.cunt > 0)
+{
+<div class="containertbl" dir="rtl">
+    <h2 style="text-align:right">
+        فرع :
+        @*@Html.EditorFor(model => model.Rows[0]["Title"], new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.Rows[0]["enTitle"], new { htmlAttributes = new { @class = "form-control" } })*@
+        @Model.Rows[1]["Title"]
+        @Model.Rows[1]["enTitle"]
+    </h2>
+    <h3>
+        <span> التليفون : </span>
+        @Model.Rows[0]["phone"]
+        @*@Html.EditorFor(model => model.Rows[0]["phone"], new { htmlAttributes = new { @class = "form-control" } })*@
+
+    </h3>
+   <p>
+       العنوان :
+       @Model.Rows[1]["AddBranche"]
+       @Model.Rows[1]["enAddrBranch"]
+         @*  @Html.EditorFor(model => model.Rows[0]["AddBranche"], new { htmlAttributes = new { @class = "form-control" } })*@
+           @*@Html.EditorFor(model => model.Rows[0]["enAddrBranch"], new { htmlAttributes = new { @class = "form-control" } })*@
+
+   </p>
+    <img src="@Url.Content(Model.Rows[1]["imgSrc"].ToString())" width="200" height="100" alt="error"/>
+    <hr/>
+    
+    <table class="table table-hover">
+        <tr>
+            <th>
+               الصور الفرعيه للفرع
+            </th>
+           
+        </tr>
+
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            <tr>
+               
+                <td>
+                    <img src="@Url.Content(Model.Rows[i]["imgSrc"].ToString())" width="100px" height="100px" />
+                </td>
+              
+              </tr>
+        }
+
+    </table>
+</div>
+}
+else { }
+
+

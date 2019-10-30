@@ -458,10 +458,12 @@ namespace DashBoard.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AllBranches(Branches br, HttpPostedFileBase[] imgsfile)
+        public ActionResult AllBranches(Branches br)
         {
             BranchDetail bd = new BranchDetail();
             HttpPostedFileBase file = Request.Files["imgfile"];
+            HttpPostedFileBase files = Request.Files["files"];
+            // string[] files = Request.Files["fileUpload"];
             if (file != null && file.ContentLength > 0)
                 try
                 {
@@ -472,14 +474,18 @@ namespace DashBoard.Controllers
                     com.ExecuteNonQuery();
                     int id = getMaxId();
                     SqlCommand com2;
-                    foreach (HttpPostedFileBase file1 in imgsfile)
-                    {
-                        if (file1.ContentLength > 0)
+                    for ( int i=0;i<Request.Files.Count; i++)
+                    { if (i == 0)
+                        { continue; }
+                        else
                         {
-                            file1.SaveAs(Server.MapPath("~/imgs/" + file1.FileName));
-                            bd.imgSrc = "~/imgs/" + file1.FileName;
-                            com2 = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + id + ")", con);
-
+                            if (Request.Files[i].ContentLength > 0)
+                            {
+                                Request.Files[i].SaveAs(Server.MapPath("~/imgs/" + Request.Files[i].FileName));
+                                bd.imgSrc = "~/imgs/" + Request.Files[i].FileName;
+                                com2 = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + id + ")", con);
+                                com2.ExecuteNonQuery();
+                            }
                         }
                     }
                     con.Close();
@@ -527,36 +533,37 @@ namespace DashBoard.Controllers
             }
             catch { con.Close(); return 0; }
         }
+      
         public ActionResult Details()
         {
-
             return View();
         }
         [HttpPost]
         public ActionResult Details(int BID)
         {
-
             try
             {
 
                 con.Open();
-                com = new SqlCommand("select * from Branches inner join BranchDetail on Branches.BID = BranchDetail.FKBranchID ", con);
+                com = new SqlCommand("select * from Branches inner join BranchDetail on Branches.BID = BranchDetail.FKBranchID where BID=" + BID, con);
                 SqlDataReader SqlDr = com.ExecuteReader();
                 DataTable d = new DataTable();
                 d.Load(SqlDr);
-                List<Branches> List = new List<Branches>();
-                for (int t = 0; t < d.Rows.Count; t++)
-                {
-                    int id = Convert.ToInt16(d.Rows[t]["BID"]);
-                    string name = d.Rows[t]["Title"].ToString();
-                    List.Add(new Branches() { BID = id, Title = name });
-                    ViewBag.listBranches = new SelectList(List, "BID", "Title");
-                }
-
+                //List<Branches> List = new List<Branches>();
+                //for (int t = 0; t < d.Rows.Count; t++)
+                //{
+                //    int id = Convert.ToInt16(d.Rows[t]["BID"]);
+                //    string name = d.Rows[t]["Title"].ToString();
+                //    List.Add(new Branches() { BID = id, Title = name });
+                //    ViewBag.listBranches = new SelectList(List, "BID", "Title");
+                //}
+                ViewBag.cunt = d.Rows.Count;
                 con.Close();
+                return View(d);
             }
-            catch { con.Close(); }
-            return View();
+            catch { con.Close(); return View(); }
+
+
         }
 
         //----------------------------------------edit data in table ----------------------
@@ -688,10 +695,7 @@ namespace DashBoard.Controllers
         }
         [HttpPost]
         public ActionResult Editsubcate(SubCategory sub)
-        {
-
-          
-                try
+        { try
                 {
                    
                     con.Open();

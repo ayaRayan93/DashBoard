@@ -35,11 +35,11 @@
                     <img src="@Url.Content(Model.Rows[i]["mainImg"].ToString())" width="50px" height="50px"/>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Rows[i]["BID"] }) </td>
-                   <td> @Html.ActionLink("Details", "Details", new { id = Model.Rows[i]["BID"] }) 
+                    @Html.ActionLink("تعديل", "Edit", new { id = Model.Rows[i]["BID"] }) </td>
+                   <td> @Html.ActionLink("تفاصيل", "Details", new { id = Model.Rows[i]["BID"] }) 
                     
                 </td>
-                <td><div id="remove"> <a id="@Model.Rows[i]["BID"]" href="javascript:;">delete</a></div></td>
+                <td><div id="remove"> <a id="@Model.Rows[i]["BID"]" href="javascript:;">حذف</a></div></td>
             </tr>
         }
 
