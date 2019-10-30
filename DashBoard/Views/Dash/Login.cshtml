@@ -11,6 +11,20 @@
     <link href="~/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin.css" rel="stylesheet">
+    <style>
+        input .form-control{font-size:20px;
+        }
+        .container {width:100%;font-size:14px
+        }
+        .card-body {width:124%;padding-left:20px
+        }
+        
+        .card-login {max-width: 32rem;
+        }
+        .btn {    width: 77%;
+    font-size: 116%
+        }
+    </style>
 </head>
 <body class="">
 
@@ -23,15 +37,16 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
+                        <label for="Username">User Name</label>
                         <div class="form-label-group">
-                            <input type="text" id="Username" name="username" class="form-control"  required="required" autofocus="autofocus">
-                            <label for="Username">User Name</label>
+                            <input type="text" id="Username" name="username" class="form-control"  required="required" placeholder="user name" autofocus="autofocus">
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="inputPassword">Password</label>
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" name="pass" class="form-control"  required="required">
-                            <label for="inputPassword">Password</label>
+                            <input type="password" id="inputPassword" name="pass" class="form-control"  required="required" placeholder="password">
+                          
                         </div>
                     </div>
 

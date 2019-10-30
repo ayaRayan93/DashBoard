@@ -549,14 +549,7 @@ namespace DashBoard.Controllers
                 SqlDataReader SqlDr = com.ExecuteReader();
                 DataTable d = new DataTable();
                 d.Load(SqlDr);
-                //List<Branches> List = new List<Branches>();
-                //for (int t = 0; t < d.Rows.Count; t++)
-                //{
-                //    int id = Convert.ToInt16(d.Rows[t]["BID"]);
-                //    string name = d.Rows[t]["Title"].ToString();
-                //    List.Add(new Branches() { BID = id, Title = name });
-                //    ViewBag.listBranches = new SelectList(List, "BID", "Title");
-                //}
+               
                 ViewBag.cunt = d.Rows.Count;
                 con.Close();
                 return View(d);
