@@ -12,7 +12,7 @@ namespace DashBoard.Controllers
 {
     public class DashController : Controller
     {
-        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-CQI3I4K\MYSQLSERVER;Initial Catalog=maindb;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=maindb;Integrated Security=True");
         SqlCommand com;
 
         // GET: Dash
@@ -51,7 +51,7 @@ namespace DashBoard.Controllers
         }
 
         [HttpPost]
-        public ActionResult Home(Basics bas,string addr)
+        public ActionResult Home(Basics bas, string addr)
         {
             try
             {
@@ -79,14 +79,14 @@ namespace DashBoard.Controllers
         }
 
         [HttpPost]
-        public ActionResult mainText(Basics bas,string enourServtxt, string headerMidtxt, string enParagMidtxt, string maintextNews,string mainImagText1,string mainImagText2, string parImgtxt, string midHeaderIndexPage,string midParaIndexPage)
+        public ActionResult mainText(Basics bas, string enourServtxt, string headerMidtxt, string enParagMidtxt, string maintextNews, string mainImagText1, string mainImagText2, string parImgtxt, string midHeaderIndexPage, string midParaIndexPage)
         {
             try
             {
                 con.Open();
-                com = new SqlCommand("insert into  Basics(ourServtxt,headerMidtxt,ParagMidtxt,maintextNews,mainImagText1,mainImagText2,parImgtxt,midHeaderIndexPage,midParaIndexPage) Values (N'" + bas.ourServtxt + "',N'" + bas.headerMidtxt + "',N'" + bas.ParagMidtxt + "',N'" + bas.maintextNews + "',N'"+bas.mainImagText1+"',N'"+bas.mainImagText2+"',N'"+bas.parImgtxt+"',N'"+bas.midHeaderIndexPage+"',N'"+bas.midParaIndexPage+"')", con);
+                com = new SqlCommand("insert into  Basics(ourServtxt,headerMidtxt,ParagMidtxt,maintextNews,mainImagText1,mainImagText2,parImgtxt,midHeaderIndexPage,midParaIndexPage) Values (N'" + bas.ourServtxt + "',N'" + bas.headerMidtxt + "',N'" + bas.ParagMidtxt + "',N'" + bas.maintextNews + "',N'" + bas.mainImagText1 + "',N'" + bas.mainImagText2 + "',N'" + bas.parImgtxt + "',N'" + bas.midHeaderIndexPage + "',N'" + bas.midParaIndexPage + "')", con);
                 com.ExecuteNonQuery();
-                com = new SqlCommand("insert into  Basics(ourServtxt,headerMidtxt,ParagMidtxt,maintextNews,mainImagText1,mainImagText2,parImgtxt,midHeaderIndexPage,midParaIndexPage) Values ('" + enourServtxt + "','" +headerMidtxt + "','" + enParagMidtxt + "','" + maintextNews + "','" + mainImagText1 + "','" + mainImagText2 + "','" + parImgtxt + "','" + midHeaderIndexPage + "','" + midParaIndexPage + "')", con);
+                com = new SqlCommand("insert into  Basics(ourServtxt,headerMidtxt,ParagMidtxt,maintextNews,mainImagText1,mainImagText2,parImgtxt,midHeaderIndexPage,midParaIndexPage) Values ('" + enourServtxt + "','" + headerMidtxt + "','" + enParagMidtxt + "','" + maintextNews + "','" + mainImagText1 + "','" + mainImagText2 + "','" + parImgtxt + "','" + midHeaderIndexPage + "','" + midParaIndexPage + "')", con);
                 com.ExecuteNonQuery();
                 con.Close();
                 ViewBag.msg = "your Data inserted successfully";
@@ -105,7 +105,7 @@ namespace DashBoard.Controllers
             try
             {
                 con.Open();
-                com = new SqlCommand("select icon from SocialMedia where icon='"+sM.icon+"'", con);
+                com = new SqlCommand("select icon from SocialMedia where icon='" + sM.icon + "'", con);
                 SqlDataReader sqldr = com.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(sqldr);
@@ -119,11 +119,13 @@ namespace DashBoard.Controllers
                 DDLSocialMedia();
                 return View();
             }
-                catch { ViewBag.Emsg = "Error Ocurred"; return View();
-                       }
-         }
+            catch
+            {
+                ViewBag.Emsg = "Error Ocurred"; return View();
+            }
+        }
 
-        
+
         public PartialViewResult _SocialLinks()
         {
             con.Open();
@@ -139,51 +141,53 @@ namespace DashBoard.Controllers
 
             //try
             //{
-               
-                 con.Open();
-                com = new SqlCommand("select * from SocialMedia ", con);
-                SqlDataReader SqlDr = com.ExecuteReader();
-                DataTable d = new DataTable();
-                d.Load(SqlDr);
-                DataRow newRow = d.NewRow();
-                con.Close();
-                string[] arr = new string[4] { "facebook", "twitter", "whatsapp", "instagram" };
-                List<SocialMedia> List = new List<SocialMedia>();
-           
-                if (d.Rows.Count > 0)
+
+            con.Open();
+            com = new SqlCommand("select * from SocialMedia ", con);
+            SqlDataReader SqlDr = com.ExecuteReader();
+            DataTable d = new DataTable();
+            d.Load(SqlDr);
+            DataRow newRow = d.NewRow();
+            con.Close();
+            string[] arr = new string[4] { "facebook", "twitter", "whatsapp", "instagram" };
+            List<SocialMedia> List = new List<SocialMedia>();
+
+            if (d.Rows.Count > 0)
+            {
+
+                //for (int i = 0; i < d.Rows.Count; i++)
+                //{
+                for (int k = 0; k < arr.Length; k++)
                 {
 
-                    //for (int i = 0; i < d.Rows.Count; i++)
-                    //{
-                        for (int k = 0; k < arr.Length; k++)
-                        {
-                       
 
-                        if (!arr[k].Contains(d.Rows[k]["icon"].ToString()))
-                        {
-                            List.Add(new SocialMedia() { SocialID = k + 1, icon = arr[k] });
-                            break;
-                        }
-                        else { continue; }
-                        }
-
-
-                   // }
-
-                    ViewBag.listIcons = List;
-                }
-           
-                else {
-                        for (int i = 0; i < arr.Length; i++) {
-                        List.Add(new SocialMedia() { SocialID = i + 1, icon = arr[i] });
-                       }
-                    ViewBag.listIcons = List;
+                    if (!arr[k].Contains(d.Rows[k]["icon"].ToString()))
+                    {
+                        List.Add(new SocialMedia() { SocialID = k + 1, icon = arr[k] });
+                        break;
+                    }
+                    else { continue; }
                 }
 
 
-                
+                // }
+
+                ViewBag.listIcons = List;
+            }
+
+            else
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    List.Add(new SocialMedia() { SocialID = i + 1, icon = arr[i] });
+                }
+                ViewBag.listIcons = List;
+            }
+
+
+
             //}
-           // catch {  }
+            // catch {  }
 
         }
 
@@ -217,11 +221,13 @@ namespace DashBoard.Controllers
             try
             {
                 con.Open();
-                com = new SqlCommand("insert into  SubCategory Values (N'" + sub.SubCateName + "','" + sub.FKServID + "',N'"+ sub.enSubName + "')", con);
+                com = new SqlCommand("insert into  SubCategory Values (N'" + sub.SubCateName + "','" + sub.FKServID + "',N'" + sub.enSubName + "')", con);
                 com.ExecuteNonQuery();
                 con.Close();
                 DDlSevices();
-                return View();
+                if (ViewData["listServ"] != null)
+                    return View();
+                else return View(ViewBag.Emsg);
             }
             catch { ViewBag.Emsg = "Error Ocurred"; return View(); }
         }
@@ -275,7 +281,7 @@ namespace DashBoard.Controllers
                     file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
                     singlenews.img = "~/imgs/" + file.FileName;
                     con.Open();
-                    com = new SqlCommand("insert into  imgNew Values ('" + singlenews.img + "',N'" + singlenews.Headertxt + "','" + singlenews.DateNew + "',N'" + singlenews.Maintxt + "',N'" + singlenews.enHeadertxt + "',N'"+singlenews.enMaintxt+"')", con);
+                    com = new SqlCommand("insert into  imgNew Values ('" + singlenews.img + "',N'" + singlenews.Headertxt + "','" + singlenews.DateNew + "',N'" + singlenews.Maintxt + "',N'" + singlenews.enHeadertxt + "',N'" + singlenews.enMaintxt + "')", con);
                     com.ExecuteNonQuery();
                     con.Close();
                     return View();
@@ -297,7 +303,7 @@ namespace DashBoard.Controllers
             DataTable dt = new DataTable();
             dt.Load(sqldr);
             con.Close();
-          
+
             return PartialView("_lastNew", dt);
         }
         public ActionResult products()
@@ -316,12 +322,14 @@ namespace DashBoard.Controllers
                     file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
                     pro.img = "~/imgs/" + file.FileName;
                     con.Open();
-                    com = new SqlCommand("insert into  Products Values ('" + pro.Price + "',N'" + pro.Text + "','" + pro.img + "'," + pro.FKSubID + ",N'"+pro.enText+"')", con);
+                    com = new SqlCommand("insert into  Products Values ('" + pro.Price + "',N'" + pro.Text + "','" + pro.img + "'," + pro.FKSubID + ",N'" + pro.enText + "')", con);
                     com.ExecuteNonQuery();
                     con.Close();
-                    
+
                     DDlsub();
-                    return View();
+                    if (ViewData["listsub"] != null)
+                    { return View(); }
+                    else { return View(ViewBag.Emsg); }
                 }
                 catch { ViewBag.Emsg = "a product didn't insert correctly"; return View(); }
 
@@ -348,6 +356,7 @@ namespace DashBoard.Controllers
                     List.Add(new SubCategory() { SubCategoryID = id, SubCateName = name });
                     ViewData["listsub"] = new SelectList(List, "SubCategoryID", "SubCateName");
                 }
+
 
                 con.Close();
             }
@@ -394,30 +403,30 @@ namespace DashBoard.Controllers
         [HttpPost]
         public ActionResult services(Services serv)
         {
-            
-                HttpPostedFileBase file = Request.Files["imgfile"];
-                if (file != null && file.ContentLength > 0)
-                    try
-                    {
-                        file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
-                        serv.img = "~/imgs/" + file.FileName;
-                        con.Open();
-                        com = new SqlCommand("insert into  Services Values ('" + serv.Name + "','" + serv.textServe + "','" + serv.img + "','" + serv.enName + "','" + serv.entxtServe + "')", con);
-                        com.ExecuteNonQuery();
-                        con.Close();
 
-                        return View();
-                    }
-                    catch
-                    {
-                        ViewBag.Emsg = "your services didn't insert correctly"; return View();
-                    }
-
-                else
+            HttpPostedFileBase file = Request.Files["imgfile"];
+            if (file != null && file.ContentLength > 0)
+                try
                 {
-                    ViewBag.Emsg = "file not uploaded"; return View();
+                    file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
+                    serv.img = "~/imgs/" + file.FileName;
+                    con.Open();
+                    com = new SqlCommand("insert into  Services Values (N'" + serv.Name + "',N'" + serv.textServe + "',N'" + serv.img + "','" + serv.enName + "','" + serv.entxtServe + "')", con);
+                    com.ExecuteNonQuery();
+                    con.Close();
+
+                    return View();
                 }
-           
+                catch
+                {
+                    ViewBag.Emsg = "your services didn't insert correctly"; return View();
+                }
+
+            else
+            {
+                ViewBag.Emsg = "file not uploaded"; return View();
+            }
+
         }
 
         public PartialViewResult _services()
@@ -427,9 +436,9 @@ namespace DashBoard.Controllers
             SqlDataReader sqldr = com1.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(sqldr);
-            
+
             con.Close();
-           // IEnumerable<DataRow> s = dt.AsEnumerable();
+            // IEnumerable<DataRow> s = dt.AsEnumerable();
             return PartialView("_services", dt);
         }
         public PartialViewResult _Branches()
@@ -453,34 +462,26 @@ namespace DashBoard.Controllers
         {
             BranchDetail bd = new BranchDetail();
             HttpPostedFileBase file = Request.Files["imgfile"];
-
-            //foreach (HttpPostedFileBase f in imgsfile)
-            //{
-            //    if (f.ContentLength > 0)
-            //    {
-            //        if (f != null && file.ContentLength > 0)
-            //        {
-            //            f.SaveAs(Path.Combine(Server.MapPath("/imgs"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
-            //        }
-            //    }
-            //}
-            //foreach (HttpPostedFileBase file1 in Request.Files)
-            //{
-            //    if (file1.ContentLength > 0)
-            //    {
-            //        file1.SaveAs(Server.MapPath("~/imgs/" + file1.FileName));
-            //    }
-            //}
             if (file != null && file.ContentLength > 0)
                 try
                 {
                     file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
                     br.mainImg = "~/imgs/" + file.FileName;
                     con.Open();
-                    com = new SqlCommand("insert into  Branches Values ('" + br.phone + "','" + br.Title + "','" + br.mainImg + "','" + br.AddBranche + "','"+br.enTitle+"','"+br.enAddrBranch+"')", con);
+                    com = new SqlCommand("insert into  Branches Values ('" + br.phone + "',N'" + br.Title + "','" + br.mainImg + "',N'" + br.AddBranche + "','" + br.enTitle + "','" + br.enAddrBranch + "')", con);
                     com.ExecuteNonQuery();
                     int id = getMaxId();
-                    SqlCommand com2 = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + id + ")", con);
+                    SqlCommand com2;
+                    foreach (HttpPostedFileBase file1 in imgsfile)
+                    {
+                        if (file1.ContentLength > 0)
+                        {
+                            file1.SaveAs(Server.MapPath("~/imgs/" + file1.FileName));
+                            bd.imgSrc = "~/imgs/" + file1.FileName;
+                            com2 = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + id + ")", con);
+
+                        }
+                    }
                     con.Close();
                     ViewBag.msg = "your data inserted successfully";
                     return View();
@@ -498,13 +499,19 @@ namespace DashBoard.Controllers
         [HttpPost]
         public JsonResult Upload()
         {
+            BranchDetail bd = new BranchDetail();
+
+            con.Open();
             foreach (HttpPostedFileBase file in Request.Files)
             {
                 if (file.ContentLength > 0)
                 {
                     file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
+                    com = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + getMaxId() + ")", con);
+
                 }
             }
+            con.Close();
 
             return Json(new { result = true });
         }
@@ -512,7 +519,7 @@ namespace DashBoard.Controllers
         {
             try
             {
-                com = new SqlCommand("select top(1)BID from Branches order by BID desc ");
+                com = new SqlCommand("select top(1)BID from Branches order by BID desc ", con);
                 SqlDataReader dr = com.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(dr);
@@ -520,13 +527,20 @@ namespace DashBoard.Controllers
             }
             catch { con.Close(); return 0; }
         }
-        public ActionResult branch()
+        public ActionResult Details()
         {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Details(int BID)
+        {
+
             try
             {
 
                 con.Open();
-                com = new SqlCommand("select * from Branches ", con);
+                com = new SqlCommand("select * from Branches inner join BranchDetail on Branches.BID = BranchDetail.FKBranchID ", con);
                 SqlDataReader SqlDr = com.ExecuteReader();
                 DataTable d = new DataTable();
                 d.Load(SqlDr);
@@ -542,25 +556,6 @@ namespace DashBoard.Controllers
                 con.Close();
             }
             catch { con.Close(); }
-
-            return View();
-        }
-        [HttpPost]
-        public ActionResult branch(IEnumerable<HttpPostedFileBase> files)
-        {
-            foreach (HttpPostedFileBase file in files)
-            {
-                if (file.ContentLength > 0)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        file.SaveAs(Path.Combine(Server.MapPath("/imgs"), Guid.NewGuid() + Path.GetExtension(file.FileName)));
-                    }
-                    //var fileName = Path.GetFileName(file.FileName);
-                    //var path = Path.Combine(Server.MapPath("~/imgs"), fileName);
-                    //file.SaveAs(path);
-                }
-            }
             return View();
         }
 
@@ -576,23 +571,23 @@ namespace DashBoard.Controllers
                 SqlDataReader SqlDr = com.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(SqlDr);
-                j.ServicesID =int.Parse(dt.Rows[0]["ServicesID"].ToString());
+                j.ServicesID = int.Parse(dt.Rows[0]["ServicesID"].ToString());
                 j.Name = dt.Rows[0]["Name"].ToString();
                 j.textServe = dt.Rows[0]["textServe"].ToString();
                 j.enName = dt.Rows[0]["enName"].ToString();
                 j.entxtServe = dt.Rows[0]["entxtServe"].ToString();
-                j.img= dt.Rows[0]["img"].ToString();
+                j.img = dt.Rows[0]["img"].ToString();
                 con.Close();
                 return View(j);
             }
             catch { ViewBag.Emsg = "Error occured"; return View(); };
-            
+
         }
         [HttpPost]
         public ActionResult EditServ(Services serv)
         {
-            
-                HttpPostedFileBase file = Request.Files["imgfile"];
+
+            HttpPostedFileBase file = Request.Files["imgfile"];
             if (file != null && file.ContentLength > 0)
             {
                 try
@@ -604,7 +599,7 @@ namespace DashBoard.Controllers
                     com.ExecuteNonQuery();
                     con.Close();
                     return RedirectToAction("Services");
-               }
+                }
 
                 catch
                 {
@@ -614,7 +609,7 @@ namespace DashBoard.Controllers
             }
             else { ViewBag.Emsg = "file not uploaded"; return View(); }
 
-            }
+        }
 
         [HttpGet]
         public ActionResult EditimgNew(int id)
@@ -652,7 +647,7 @@ namespace DashBoard.Controllers
                     file.SaveAs(Server.MapPath("~/imgs/" + file.FileName));
                     im.img = "~/imgs/" + file.FileName;
                     con.Open();
-                    com = new SqlCommand("update imgNew set Headertxt=N'" + im.Headertxt + "',Maintxt=N'" + im.Maintxt + "',img='" + im.img + "',DateNew=N'" + im.DateNew + "',enHeadertxt='" + im.enHeadertxt + "', enMaintxt='" + im.enMaintxt+ "' where NewID=" + im.NewID, con);
+                    com = new SqlCommand("update imgNew set Headertxt=N'" + im.Headertxt + "',Maintxt=N'" + im.Maintxt + "',img='" + im.img + "',DateNew=N'" + im.DateNew + "',enHeadertxt='" + im.enHeadertxt + "', enMaintxt='" + im.enMaintxt + "' where NewID=" + im.NewID, con);
                     com.ExecuteNonQuery();
                     con.Close();
                     return RedirectToAction("lastNew");
@@ -665,6 +660,54 @@ namespace DashBoard.Controllers
                 }
             }
             else { ViewBag.Emsg = "file not uploaded"; return View(); }
+
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Editsubcate(int id)
+        {
+            try
+            {
+                con.Open();
+                SubCategory j = new SubCategory();
+                com = new SqlCommand("select * from SubCategory where SubCategoryID=" + id + " ", con);
+                SqlDataReader SqlDr = com.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(SqlDr);
+                j.SubCategoryID = int.Parse(dt.Rows[0]["SubCategoryID"].ToString());
+                j.SubCateName = dt.Rows[0]["SubCateName"].ToString();
+                j.enSubName = dt.Rows[0]["enSubName"].ToString();
+                DDlSevices();
+                con.Close();
+                return View(j);
+            }
+            catch { ViewBag.Emsg = "Error occured"; return View(); };
+
+        }
+        [HttpPost]
+        public ActionResult Editsubcate(SubCategory sub)
+        {
+
+          
+                try
+                {
+                   
+                    con.Open();
+                    com = new SqlCommand("update SubCategory set SubCateName=N'" + sub.SubCateName + "',enSubName='" + sub.enSubName + "' where SubCategoryID=" + sub.SubCategoryID, con);
+                    com.ExecuteNonQuery();
+                    con.Close();
+                    DDlSevices();
+                    return RedirectToAction("subcategory");
+                }
+
+                catch
+                {
+                    ViewBag.Emsg = "فشل التعديل";
+                    return View();
+                }
+           
 
         }
 

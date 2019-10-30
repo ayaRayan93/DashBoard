@@ -4,12 +4,13 @@
     ViewBag.Title = "المنتجات";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
-
+@{ if (ViewBag.listsub != null)
+    {
 <h2 style="text-align:right">المنتجات</h2>
 
 
-@using (Html.BeginForm("products", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+        using (Html.BeginForm("products", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -56,9 +57,11 @@
         <div class="form-group">
                   <div class="col-md-12">
                     <label>التصنيف الفرعي للمنتج</label>
+                    
                    @Html.DropDownListFor(m => m.FKSubID, ViewBag.listsub as IEnumerable<SelectListItem>, new { @class = "form-control" })
                    @Html.ValidationMessageFor(model => model.FKSubID, "", new { @class = "text-danger" })
-                </div>
+             
+                   </div>
             </div>
 
         <div class="form-group">
@@ -68,11 +71,15 @@
             </div>
         
     </div>
-        <p style="color:green">@ViewBag.msg</p>
+       
    </div>
-}
-@{Html.RenderAction("_product", "Dash");
-}
+        }
 
 
+        Html.RenderAction("_product", "Dash");
+    }
+
+    else
+    { <h4 style = "color:red;text-align:center" > برجاء ادخال تصنيف فرعي اولا </h4>}
+        }
 

@@ -12,18 +12,13 @@
             <th>
                 اسم الفرع بالانجليزي
             </th>
-            <th>
-                تليفون الفرع
-            </th>
-            <th>
-                عنوان الفرع بالعربي 
-            </th>
-            <th>
-                عنوان الفرع الانجليزي
-            </th>
+        
             <th>
                 الصورة الرئيسية للفرع
             </th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
 
        @for (int i = 0; i < Model.Rows.Count; i++)
@@ -35,22 +30,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => Model.Rows[i]["enTitle"])
                 </td>
+            
                 <td>
-                    @Html.DisplayFor(modelItem => Model.Rows[i]["phone"])
+                    <img src="@Url.Content(Model.Rows[i]["mainImg"].ToString())" width="50px" height="50px"/>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.Rows[i]["AddBranche"])
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Rows[i]["BID"] }) </td>
+                   <td> @Html.ActionLink("Details", "Details", new { id = Model.Rows[i]["BID"] }) 
+                    
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Rows[i]["enAddrBranch"])
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Rows[i]["mainImg"])
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Rows[i]["BID"] }) |
-                    <div id="remove"> <a id="@Model.Rows[i]["BID"]" href="javascript:;">delete</a></div>
-                </td>
+                <td><div id="remove"> <a id="@Model.Rows[i]["BID"]" href="javascript:;">delete</a></div></td>
             </tr>
         }
 

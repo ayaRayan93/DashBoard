@@ -22,7 +22,7 @@
                 رمز الخدمة
             </th>
            
-            
+            <th></th>
             <th></th>
         </tr>
 
@@ -44,14 +44,16 @@
                     @Html.DisplayFor(modelItem => Model.Rows[i]["entxtServe"])
                 </td>
                 <td>
-                    <img src="@Url.Content(Model.Rows[i]["img"].ToString())" alt="services url" width="100" height="100" />
+                    <img src="@Url.Content(Model.Rows[i]["img"].ToString())" alt="service image" width="100" height="100" />
                 </td>
               
                 <td>
                     
-                    @Html.ActionLink("تعديل","EditServ","Dash", new { id=Model.Rows[i]["ServicesID"]},new { @class="text-primary"}) |
+                    @Html.ActionLink("تعديل","EditServ","Dash", new { id=Model.Rows[i]["ServicesID"]},new { @class="text-primary"}) 
             
-                    <div id="remove"> <a id="@Model.Rows[i]["ServicesID"]" href="javascript:;">حذف</a></div>
+                  </td>
+                <td> 
+                     <div id="remove"> <a id="@Model.Rows[i]["ServicesID"]" href="javascript:;">حذف</a></div>
                 </td>
             </tr>
 }
