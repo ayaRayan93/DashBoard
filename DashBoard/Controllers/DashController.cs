@@ -480,12 +480,20 @@ namespace DashBoard.Controllers
                     com = new SqlCommand("insert into  Branches Values ('" + br.phone + "','" + br.Title + "','" + br.mainImg + "','" + br.AddBranche + "','"+br.enTitle+"','"+br.enAddrBranch+"')", con);
                     com.ExecuteNonQuery();
                     int id = getMaxId();
-                    SqlCommand com2 = new SqlCommand("insert into BranchDetail values('" + bd.imgSrc + "'," + id + ")", con);
+                    //foreach (HttpPostedFileBase file1 in Request.Files)
+                    //{
+                    //    if (file1.ContentLength > 0)
+                    //    {
+                    //        SqlCommand com2 = new SqlCommand("insert into BranchDetail values('" + Server.MapPath("~/imgs/" + file1.FileName) + "'," + id + ")", con);
+                    //        com2.ExecuteNonQuery();
+                    //    }
+                    //}
+
                     con.Close();
                     ViewBag.msg = "your data inserted successfully";
                     return View();
                 }
-                catch
+                catch(Exception ex)
                 {
                     ViewBag.Emsg = "your data didn't insert correctly"; return View();
                 }
@@ -495,6 +503,7 @@ namespace DashBoard.Controllers
                 ViewBag.Emsg = "file not uploaded"; return View();
             }
         }
+
         [HttpPost]
         public JsonResult Upload()
         {
