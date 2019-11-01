@@ -79,7 +79,7 @@
                         الصور الفرعية للفرع
                     </label>
                     @*<input type="file" name="imgsfile" class="form-control" />*@
-                    <input type='file' multiple id='fileUpload'  data-url="@Url.Action("Upload","DashController")"   />
+                    <input type='file' multiple id='fileUpload' name="files" data-url="@Url.Action("Upload","DashController")"   />
                  </div>
             </div>
             <div class="form-group">
@@ -88,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <p style="color:green">@ViewBag.msg</p>
+       
     </div>
    
 }

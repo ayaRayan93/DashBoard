@@ -23,6 +23,7 @@
                التصنيف الفرعي
             </th>
             <th></th>
+            <th></th>
         </tr>
 
        @for (int i = 0; i < Model.Rows.Count; i++)
@@ -43,7 +44,7 @@
                     <img src="@Url.Content(Model.Rows[i]["img"].ToString())" alt="product image" width="100" height="100"/>
                 </td>
                 <td>
-                    @{ System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=DESKTOP-CQI3I4K\MYSQLSERVER;Initial Catalog=maindb;Integrated Security=True");
+                    @{ System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=.;Initial Catalog=maindb;Integrated Security=True");
                         con.Open();
                         System.Data.SqlClient.SqlCommand com = new System.Data.SqlClient.SqlCommand("select * from SubCategory where SubCategoryID=" + Model.Rows[i]["FKSubID"], con);
                         System.Data.SqlClient.SqlDataReader SqlDr = com.ExecuteReader();
@@ -51,11 +52,13 @@
                         d.Load(SqlDr);
                         con.Close();
                     }
-                    @Html.DisplayFor(modelItem => d.Rows[0][0])
+                    @Html.DisplayFor(modelItem => d.Rows[0]["SubCateName"])
                 </td>
                 <td>
-                    @Html.ActionLink("تعديل", "Edit","Dash", new { id = Model.Rows[i]["ProductID"] }, new { @class = "text-primary" }) |
-                    <div id="remove"> <a id="@Model.Rows[i]["ProductID"]" href="javascript:;">حذف</a></div>
+                    @Html.ActionLink("تعديل", "Editproduct","Dash", new { id = Model.Rows[i]["ProductID"] }, new { @class = "text-primary" }) 
+                </td>
+                <td> 
+                     <div id="remove"> <a id="@Model.Rows[i]["ProductID"]" href="javascript:;">حذف</a></div>
                 </td>
             </tr>
         }

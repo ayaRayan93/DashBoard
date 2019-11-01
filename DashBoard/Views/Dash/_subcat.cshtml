@@ -16,6 +16,7 @@
                الخدمة
             </th>
             <th></th>
+            <th></th>
         </tr>
 
        @for (int i = 0; i < Model.Rows.Count; i++)
@@ -28,19 +29,21 @@
                     @Html.DisplayFor(modelItem => Model.Rows[i]["enSubName"])
                 </td>
                 <td>
-                    @{ System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=DESKTOP-CQI3I4K\MYSQLSERVER;Initial Catalog=maindb;Integrated Security=True");
+                    @{ System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=.;Initial Catalog=maindb;Integrated Security=True");
                         con.Open();
-                        System.Data.SqlClient.SqlCommand com = new System.Data.SqlClient.SqlCommand("select * from Services where ServicesID="+Model.Rows[i]["FKServID"], con);
+                        System.Data.SqlClient.SqlCommand com = new System.Data.SqlClient.SqlCommand("select * from Services where ServicesID="+int.Parse(Model.Rows[i]["FKServID"].ToString()), con);
                         System.Data.SqlClient.SqlDataReader SqlDr = com.ExecuteReader();
                         System.Data.DataTable d = new System.Data.DataTable();
                         d.Load(SqlDr);
                         con.Close();
                     }
-                    @Html.DisplayFor(modelItem => d.Rows[0][0])
+                    @Html.DisplayFor(modelItem => d.Rows[0]["Name"])
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Rows[i]["SubCategoryID"] }) |
-                    <div id="remove"> <a id="@Model.Rows[i]["SubCategoryID"]" href="javascript:;">delete</a></div>
+                    @Html.ActionLink("تعديل", "Editsubcate", new { id = Model.Rows[i]["SubCategoryID"] }) 
+                </td>
+                <td>
+                     <div id="remove"> <a id="@Model.Rows[i]["SubCategoryID"]" href="javascript:;">حذف</a></div>
                 </td>
             </tr>
         }

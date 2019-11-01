@@ -4,10 +4,10 @@
     ViewBag.Title = "التصنيفات الفرعية";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
-
+@{ if (ViewBag.listServ != null)
+    {
 <h2 style="text-align:right">اضافة تصنيف فرعي</h2>
-
-@using (Html.BeginForm("subcategory", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
+using (Html.BeginForm("subcategory", "Dash", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -26,7 +26,7 @@
         <div class="form-group">
             <div class="col-md-12" dir="rtl">
                 <label> اسم التصنيف بالعربي</label>
-                @Html.EditorFor(model => model.SubCateName, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.EditorFor(model => model.SubCateName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SubCateName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,4 +44,9 @@
         </div>
     </div>
 }
-@{Html.RenderAction("_subcat", "Dash");}
+            Html.RenderAction("_subcat", "Dash");
+        }
+    
+ else
+    { <h4 style="color:red;text-align:center"> برجاء ادخال خدمة اولا </h4>}
+        }

@@ -9,7 +9,7 @@ namespace DashBoard.Controllers
 {
     public class DeletingController : Controller
     {
-        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-CQI3I4K\MYSQLSERVER;Initial Catalog=maindb;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=maindb;Integrated Security=True");
         SqlCommand com;
         // GET: Deleting
         public ActionResult Index()
